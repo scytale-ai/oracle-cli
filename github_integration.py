@@ -18,25 +18,25 @@ class GithubIntegration(Intgration):
             api_token = f.read().strip()
         return Github(api_token)
 
-    def get_users_permissions(self):
-        pass
-
     def _get_repo(self, repo_name) -> Repository.Repository:
+        """ get github repo object """
         search_res = self.auth_obj.search_repositories(query=f'org:{self.organization} {repo_name}')
         return search_res[0]
 
     def get_all_repo_names(self):
-        github_repos =[]
+        """ get all repositories names in the given organization """
+        github_repos = []
         repos = self.auth_obj.search_repositories(query=f'org:{self.organization}')
         for repo in repos:
             github_repos.append(repo.full_name)
         return pd.DataFrame(
             {
                 'repo_name': github_repos
-             }
+            }
         )
 
     def get_repo_branch_protection_status(self, repo_name):
+        """ get all the repo's brnanches protection status """
         repo = self._get_repo(repo_name)
         branch_names = []
         protection_statuses = []
@@ -50,6 +50,9 @@ class GithubIntegration(Intgration):
                 'is_protected': protection_statuses
             }
         )
+
+    def get_users_permissions(self):
+        pass
 
     def get_prs(self):
         pass
