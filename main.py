@@ -1,6 +1,9 @@
-from integration import GithubIntegration
+from cli.cli import run_cli
 
-int_instance = GithubIntegration()
 
-int_instance.get_mfa_users()
+def main():
+    run_cli()
 
+
+if __name__ == '__main__':
+    main()
