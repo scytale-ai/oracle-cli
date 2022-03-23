@@ -26,11 +26,15 @@ class GithubIntegration(Intgration):
         return search_res[0]
 
     def get_all_repo_names(self):
-        github_repos = {'github_repos': []}
+        github_repos =[]
         repos = self.auth_obj.search_repositories(query=f'org:{self.organization}')
         for repo in repos:
-            github_repos['github_repos'].append(repo.full_name)
-        return pd.DataFrame(github_repos)
+            github_repos.append(repo.full_name)
+        return pd.DataFrame(
+            {
+                'repo_name': github_repos
+             }
+        )
 
     def get_repo_branch_protection_status(self, repo_name):
         repo = self._get_repo(repo_name)
