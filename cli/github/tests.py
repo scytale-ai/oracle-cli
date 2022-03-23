@@ -1,6 +1,8 @@
 import inquirer
 import time
-from ..utils import get_loader, get_success_message, get_failure_message
+import inspect
+from cli.utils import get_loader, get_success_message, get_failure_message
+from models.github import GithubIntegration
 
 
 def test_example(test_name, success):
@@ -18,16 +20,20 @@ def test_a():
     test_example("A", True)
 
 
-def test_b():
-    test_example("B", False)
-
-
 github_tests = {
     'A': test_a,
-    'B': test_b
 }
 
+github_methods = inspect.getmembers(GithubIntegration(), predicate=inspect.ismethod)
+
+for method in github_methods:
+    print(method)
+    method_name = method[1].__doc__
+    if method_name:
+        github_tests[method_name] = method[1]
+
 github_choices = github_tests.keys()
+
 
 
 def run_github_test(test_name):

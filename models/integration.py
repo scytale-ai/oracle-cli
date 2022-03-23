@@ -1,4 +1,4 @@
-class Intgration():
+class Integration:
     def __init__(self):
         pass
 
@@ -11,4 +11,5 @@ class Intgration():
         pass
 
     def get_csv(self):
+        """Get CSV"""
         pass

@@ -16,6 +16,8 @@ def run_cli():
     args = init_cli()
 
     if args.github is not None:
+        # TODO - Check if authenticated
+        print(args.github)
         if not args.github:
             select_github_test()
         else:
