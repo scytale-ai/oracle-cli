@@ -16,7 +16,6 @@ github_tests = {
 github_methods = inspect.getmembers(GithubIntegration(), predicate=inspect.ismethod)
 
 for method in github_methods:
-    print(method)
     method_name = method[1].__doc__
     if method_name:
         github_tests[method_name] = method[1]

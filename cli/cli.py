@@ -7,23 +7,41 @@ def init_cli():
 
     parser.add_argument('--github', nargs="*", help="Run GitHub tests",
                         choices=github_choices)
-    parser.add_argument('--disconnect', action="store_true", help="Disconnect from github") # Deleted tokens.
+    parser.add_argument('--aws', nargs="*", help="Run AWS tests",
+                        choices=github_choices)
+    parser.add_argument('--disconnect', action="store_true", help="Disconnect from github")  # Deleted tokens.
 
     return parser.parse_args()
+
+
+def run_integration_operations(integration_args, integration_name):
+    integration_functions = {
+        "github": {
+            "selector": select_github_test,
+            "runner": run_github_test
+        },
+    }
+
+    print(integration_functions)
+
+    if integration_args is not None:
+        # TODO - Check if authenticated
+        if not integration_args:
+            integration_functions[integration_name]['selector']()
+        else:
+            arg_name = integration_args[0]
+
+            integration_functions[integration_name]['runner'](arg_name)
 
 
 def run_cli():
     args = init_cli()
 
     if args.github is not None:
-        # TODO - Check if authenticated
-        print(args.github)
-        if not args.github:
-            select_github_test()
-        else:
-            arg_name = args.github[0]
+        run_integration_operations(args.github, 'github')
 
-            run_github_test(arg_name)
+    elif args.aws is not None:
+        run_integration_operations(args.aws, 'aws')
 
-    if args.disconnect:
+    elif args.disconnect:
         print('Disconnected from integration...')
