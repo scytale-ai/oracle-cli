@@ -7,7 +7,7 @@ def init_cli():
 
     parser.add_argument('--github', nargs="*", help="Run GitHub tests",
                         choices=github_choices)
-    parser.add_argument('--disconnect', action="store_true", help="Disconnect from github")
+    parser.add_argument('--disconnect', action="store_true", help="Disconnect from github") # Deleted tokens.
 
     return parser.parse_args()
 

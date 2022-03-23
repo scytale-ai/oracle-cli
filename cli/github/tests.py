@@ -5,19 +5,8 @@ from cli.utils import get_loader, get_success_message, get_failure_message
 from models.github import GithubIntegration
 
 
-def test_example(test_name, success):
-    spinner = get_loader(f"Running test {test_name}")
-    spinner.start()
-    time.sleep(2)
-    spinner.stop()
-    if success:
-        get_success_message(f"{test_name} ran successfully")
-    else:
-        get_failure_message(f"{test_name} run failed")
-
-
 def test_a():
-    test_example("A", True)
+    print("Doing some stuff...")
 
 
 github_tests = {
@@ -35,10 +24,25 @@ for method in github_methods:
 github_choices = github_tests.keys()
 
 
-
 def run_github_test(test_name):
     if test_name in github_tests:
-        github_tests[test_name]()
+        success = True
+        spinner = get_loader(f"Running test: {test_name}" + "\n")
+        spinner.start()
+        time.sleep(2)
+        spinner.stop()
+
+        try:
+            github_tests[test_name]()
+        except Exception:
+            success = False
+            raise
+        finally:
+            if success:
+                print(get_success_message(f"{test_name} ran successfully"))
+            else:
+                print(get_failure_message(f"{test_name} run failed"))
+
     else:
         print("Invalid test name")
 
