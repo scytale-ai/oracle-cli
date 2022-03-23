@@ -1,5 +1,5 @@
 from integration import Intgration
-from github import Github
+from github import Github, Repository
 import pandas as pd
 
 
@@ -21,12 +21,31 @@ class GithubIntegration(Intgration):
     def get_users_permissions(self):
         pass
 
-    def get_repos(self):
+    def _get_repo(self, repo_name) -> Repository.Repository:
+        search_res = self.auth_obj.search_repositories(query=f'org:{self.organization} {repo_name}')
+        return search_res[0]
+
+    def get_all_repo_names(self):
         github_repos = {'github_repos': []}
         repos = self.auth_obj.search_repositories(query=f'org:{self.organization}')
         for repo in repos:
             github_repos['github_repos'].append(repo.full_name)
         return pd.DataFrame(github_repos)
+
+    def get_repo_branch_protection_status(self, repo_name):
+        repo = self._get_repo(repo_name)
+        branch_names = []
+        protection_statuses = []
+        for branch in repo.get_branches():
+            branch_names.append(branch.name)
+            protection_statuses.append(branch.protected)
+        return pd.DataFrame(
+            {
+                'github_repo': [repo.name] * len(branch_names),
+                'branch_name': branch_names,
+                'is_protected': protection_statuses
+            }
+        )
 
     def get_prs(self):
         pass
@@ -37,4 +56,4 @@ class GithubIntegration(Intgration):
 
 if __name__ == '__main__':
     gi = GithubIntegration(auth_file='/home/evoosa/secrets/github_token', organization='scytale-ai')
-    print(gi.get_repos())
+    print(gi._())
