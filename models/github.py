@@ -1,4 +1,5 @@
-import Intgration from integration
+from integration import Intgration
+
 
 class GithubIntegration(Intgration):
     def get_mfa_users(self):
