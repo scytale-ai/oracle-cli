@@ -1,7 +1,7 @@
 import argparse
 from models.github import GithubIntegration
 from models.test_suite import TestSuite
-from .utils import get_csv
+from .utils import convert_dataframe_to_csv
 
 github_test_suite = TestSuite(GithubIntegration(auth_file='/home/evoosa/secrets/github_token', organization='scytale-ai'))
 
@@ -48,4 +48,4 @@ def run_cli():
         print('Disconnected from integration...')
 
     if args.to_csv:
-        get_csv(result)
+        convert_dataframe_to_csv(result)

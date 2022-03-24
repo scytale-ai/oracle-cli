@@ -24,7 +24,7 @@ def get_failure_message(failure_text):
     return f"{failure_x} {failure_text}"
 
 
-def get_csv(dataframe: DataFrame):
+def convert_dataframe_to_csv(dataframe: DataFrame):
     """Convert the given dataframe to a CSV"""
     now = datetime.now().strftime("%Y_%m_%d-%H_%M")
     output_csv_path = os.path.join(DEFAULT_OUTPUT_CSV_DIR, f'results_{now}.csv')

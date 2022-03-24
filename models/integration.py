@@ -6,9 +6,6 @@ class Integration:
         self.auth_obj = self.get_auth_obj()
         self.organization = organization
 
-    def display_help_msg(self):
-        pass
-
     def get_auth_obj(self):
         # get it from a file for the POC
         self.__auth_obj = {}
