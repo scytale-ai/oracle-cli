@@ -3,15 +3,26 @@ from colored import stylize, fg, attr
 import os
 from datetime import datetime
 from pandas import DataFrame
+from termcolor import colored, cprint
+
+import numpy as np
+import pandas as pd
 
 PREFIX_SYMBOLS = {
     0: stylize('\u2713', fg(10) + attr(1)),  # GREEN V
     1: stylize('~', fg(3) + attr(1)),  # YELLOW ~
     2: stylize('\u2716', fg(9) + attr(1)),  # RED X
-    4: ''
+}
+
+SEVERITY_COLORS = {
+    0: 'green',
+    1: 'yellow',
+    2: 'red',
+    3: 'white'
 }
 
 DEFAULT_OUTPUT_CSV_DIR = './'
+MAX_COLUMN_WIDTH = 30
 
 
 def get_loader(text):
@@ -41,6 +52,22 @@ def convert_dataframe_to_csv(dataframe: DataFrame):
 
 def pretty_print_dataframe(dataframe: DataFrame):
     """Pretty print the given DataFrame"""
+    headers = list(dataframe.columns)
+    headers.remove('severity')
+    header_str = ''
+    for col_name in headers:
+        header_str += str(col_name).ljust(MAX_COLUMN_WIDTH, ' ')[:MAX_COLUMN_WIDTH] + " "
+    print(header_str)
+
     for row in dataframe.iterrows():
-        row_data = row[1]
-        severity = 4
+        row_dict = row[1].to_dict()
+        fmt_row = ''
+        for key in row_dict.keys():
+            if key != 'severity':
+                attr = row_dict[key]
+                fmt_row += str(attr).ljust(MAX_COLUMN_WIDTH, ' ')[:MAX_COLUMN_WIDTH] + " "
+        if row_dict['severity'] == 3:
+            print(fmt_row)
+        else:
+            cprint(colored(fmt_row, SEVERITY_COLORS[row_dict['severity']]))
+
