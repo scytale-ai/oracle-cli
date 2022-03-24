@@ -1,37 +1,35 @@
 import argparse
-from .github.tests import run_github_test, select_github_test, github_choices
+from models.github import GithubIntegration
+from models.test_suite import TestSuite
+
+github_test_suite = TestSuite(GithubIntegration())
 
 
 def init_cli():
     parser = argparse.ArgumentParser(description="Scytale compliance CLI")
 
     parser.add_argument('--github', nargs="*", help="Run GitHub tests",
-                        choices=github_choices)
+                        choices=github_test_suite.choices)
     parser.add_argument('--aws', nargs="*", help="Run AWS tests",
-                        choices=github_choices)
+                        choices=github_test_suite.choices)
     parser.add_argument('--disconnect', action="store_true", help="Disconnect from github")  # Deleted tokens.
 
     return parser.parse_args()
 
 
 def run_integration_operations(integration_args, integration_name):
-    integration_functions = {
-        "github": {
-            "selector": select_github_test,
-            "runner": run_github_test
-        },
-    }
+    test_suite = {}
+    if integration_name == 'github':
+        test_suite = github_test_suite
 
-    print(integration_functions)
-
-    if integration_args is not None:
+    if integration_args is not None and test_suite is not None:
         # TODO - Check if authenticated
         if not integration_args:
-            integration_functions[integration_name]['selector']()
+            test_suite.select_test()
         else:
-            arg_name = integration_args[0]
+            test_name = integration_args[0]
 
-            integration_functions[integration_name]['runner'](arg_name)
+            test_suite.run_test(test_name)
 
 
 def run_cli():

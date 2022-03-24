@@ -1,5 +1,6 @@
 class Integration:
-    def __init__(self):
+    def __init__(self, display_name):
+        self.display_name = display_name
         pass
 
     def display_help_msg(self):
