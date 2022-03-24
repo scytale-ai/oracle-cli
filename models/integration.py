@@ -1,7 +1,9 @@
 class Integration:
-    def __init__(self, display_name):
+    def __init__(self, display_name, auth_file, organization):
         self.display_name = display_name
-        pass
+        self.auth_file = auth_file
+        self.auth_obj = self.get_auth_obj()
+        self.organization = organization
 
     def display_help_msg(self):
         pass

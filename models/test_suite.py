@@ -9,7 +9,6 @@ def test_a():
 
 
 class TestSuite:
-
     def __init__(self, integration_instance):
         self.integration = integration_instance
         self.methods = inspect.getmembers(integration_instance, predicate=inspect.ismethod)
@@ -30,7 +29,6 @@ class TestSuite:
         for method in self.methods:
             if method[0] == method_name:
                 return method[1].__doc__
-
 
     def run_test(self, test_name):
         """Run Test"""
