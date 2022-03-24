@@ -39,7 +39,8 @@ class GithubIntegration(Integration):
             github_repos.append(repo.full_name)
         return pd.DataFrame(
             {
-                'repo_name': github_repos
+                'repo_name': github_repos,
+                'severity': [3] * len(github_repos)
             }
         )
 
@@ -47,48 +48,74 @@ class GithubIntegration(Integration):
         """Repository Branch Protection"""
         branch_names = []
         protection_statuses = []
+        severities = []
         repo = self.__get_repo(repo_name)
         for branch in repo.get_branches():
+            severity = 0
+            protection_status = branch.protected
+            if not protection_status:
+                severity = 2
             branch_names.append(branch.name)
-            protection_statuses.append(branch.protected)
+            protection_statuses.append(protection_status)
+            severities.append(severity)
         return pd.DataFrame(
             {
                 'github_repo': [repo.name] * len(branch_names),
                 'branch_name': branch_names,
-                'is_protected': protection_statuses
+                'is_protected': protection_statuses,
+                'severity': severities
             }
         )
 
     def get_all_users_repo_permissions(self):
-        """All Repository User Permissions"""
+        """All Users Repositories Permissions"""
         repo_names = []
         usernames = []
         permissions = []
+        severities = []
+
         organization = self.auth_obj.get_organization(self.organization)
         repos = self.__get_all_repos()
         for member in organization.get_members():
             print(f'- getting repository permissions for {member.login}')
             for repo in repos:
+                permission = repo.get_collaborator_permission(member.login)
+                severity = 0
+                if permission == 'write':
+                    severity = 1
+                elif permission == 'admin':
+                    severity = 2
+                severities.append(severity)
                 usernames.append(member.login)
                 repo_names.append(repo.name)
-                permissions.append(repo.get_collaborator_permission(member.login))
+                permissions.append(permission)
         return pd.DataFrame({
             'repo_name': repo_names,
             'username': usernames,
-            'permission': permissions
+            'permission': permissions,
+            'severity': severities
         })
 
     def get_user_repos_permissions(self, username):
-        """Get User Repository Permissions"""
+        """Get User's Repositories Permissions"""
+        severities = []
         repo_names = []
         permissions = []
         repos = self.__get_all_repos()
         for repo in repos:
+            permission = repo.get_collaborator_permission(username)
+            severity = 0
+            if permission == 'write':
+                severity = 1
+            elif permission == 'admin':
+                severity = 2
+            severities.append(severity)
             repo_names.append(repo.name)
-            permissions.append(repo.get_collaborator_permission(username))
+            permissions.append(permission)
         return pd.DataFrame({
             'repo_name': repo_names,
-            'permission': permissions
+            'permission': permissions,
+            'severity': severities
         })
 
     def get_prs(self):
