@@ -1,11 +1,6 @@
 import inspect
 import inquirer
-import time
-from cli.utils import get_loader, get_success_message, get_failure_message
-
-
-def test_a():
-    print("Doing some stuff...")
+from cli.utils import get_loader, get_success_message, get_failure_message, scytale_message
 
 
 class TestSuite:
@@ -35,12 +30,32 @@ class TestSuite:
         if test_name in self.tests:
             success = True
             spinner = get_loader(f"Running test: {test_name}" + "\n")
-            spinner.start()
-            time.sleep(2)
-            spinner.stop()
 
             try:
-                results = self.tests[test_name]()
+                test = self.tests[test_name]
+                test_signature = inspect.signature(test).parameters.keys() or []
+
+                results = None
+                if len(test_signature) == 0:
+                    spinner.start()
+                    results = test()
+                else:
+                    args = []
+                    print("This test needs some inputs.\n")
+                    for arg in test_signature:
+                        value = input(f"{arg}: ")
+                        args.append(value)
+
+                    spinner.start()
+                    results = test(*args)
+
+                if 'severity' in results[0]:
+                    for res in results:
+                        if res['severity'] == 2:
+                            success = False
+                            break
+
+                spinner.stop()
                 return results
             except Exception:
                 success = False
@@ -51,6 +66,7 @@ class TestSuite:
                 else:
                     print(get_failure_message(f"{test_name} run failed"))
 
+                print(scytale_message)
         else:
             print("Invalid test name")
 

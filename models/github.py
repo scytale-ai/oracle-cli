@@ -1,6 +1,7 @@
 from .integration import Integration
 from github import Github, Repository
 import pandas as pd
+from datetime import datetime, timedelta
 
 
 class GithubIntegration(Integration):
@@ -115,8 +116,18 @@ class GithubIntegration(Integration):
             'severity': severities
         })
 
-    def get_prs(self):
-        pass
+    def list_prs(self):
+        """List Pull Requests from the Past 24hrs"""
+        repos = self.__get_all_repos()
+        all_pulls = []
+        for repo in repos:
+            pulls = repo.get_pulls()
+            for pull in pulls:
+                now = datetime.now()
+                yesterday = now - timedelta(hours=24)
+                if pull.created_at >= yesterday:
+                    all_pulls.append(pull)
 
-    def check_cr_enforce_on_repos(self):
-        pass
+        return pd.DataFrame({
+            'Title': map(lambda pr: pr.title, all_pulls)
+        })
