@@ -49,9 +49,9 @@ class TestSuite:
                     spinner.start()
                     results = test(*args)
 
-                if 'severity' in results[0]:
-                    for res in results:
-                        if res['severity'] == 2:
+                if 'severity' in results.keys():
+                    for sev in results['severity'].values:
+                        if sev == 2:
                             success = False
                             break
 
@@ -61,6 +61,7 @@ class TestSuite:
                 success = False
                 raise
             finally:
+                print("\n")
                 if success:
                     print(get_success_message(f"{test_name} ran successfully"))
                 else:
