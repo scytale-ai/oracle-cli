@@ -41,7 +41,7 @@ class TestSuite:
 
             try:
                 results = self.tests[test_name]()
-                print(results)
+                return results
             except Exception:
                 success = False
                 raise
@@ -63,4 +63,5 @@ class TestSuite:
                           ),
         ]
         answers = inquirer.prompt(questions)
-        self.run_test(answers['test_name'])
+        result = self.run_test(answers['test_name'])
+        return result
