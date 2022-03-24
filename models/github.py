@@ -42,7 +42,7 @@ class GithubIntegration(Integration):
         )
 
     def get_repo_branch_protection_status(self, repo_name):
-        """Repository Branch Protection"""
+        """Get Repository Branch Protection Status"""
         branch_names = []
         protection_statuses = []
         severities = []
@@ -65,7 +65,7 @@ class GithubIntegration(Integration):
         )
 
     def get_all_users_repo_permissions(self):
-        """All Users Repositories Permissions"""
+        """Get All Users Repositories Permissions"""
         repo_names = []
         usernames = []
         permissions = []

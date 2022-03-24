@@ -2,7 +2,7 @@ import argparse
 from models.github import GithubIntegration
 from models.test_suite import TestSuite
 
-github_test_suite = TestSuite(GithubIntegration(auth_file='/home/idan/secrets/github_token', organization='scytale-ai'))
+github_test_suite = TestSuite(GithubIntegration(auth_file='/home/evoosa/secrets/github_token', organization='scytale-ai'))
 
 
 def init_cli():

@@ -40,7 +40,8 @@ class TestSuite:
             spinner.stop()
 
             try:
-                self.tests[test_name]()
+                results = self.tests[test_name]()
+                print(results)
             except Exception:
                 success = False
                 raise
