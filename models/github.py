@@ -121,6 +121,7 @@ class GithubIntegration(Integration):
         repos = self.__get_all_repos()
         all_pulls = []
         for repo in repos:
+            print(f' - getting PRs from repo {repo.name}')
             pulls = repo.get_pulls()
             for pull in pulls:
                 now = datetime.now()
@@ -129,5 +130,6 @@ class GithubIntegration(Integration):
                     all_pulls.append(pull)
 
         return pd.DataFrame({
-            'Title': map(lambda pr: pr.title, all_pulls)
+            'title': map(lambda pr: pr.title, all_pulls),
+            'severity': [3] * len(all_pulls)
         })
