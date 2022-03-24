@@ -49,6 +49,12 @@ class TestSuite:
                     spinner.start()
                     results = test(*args)
 
+                if 'severity' in results[0]:
+                    for res in results:
+                        if res['severity'] == 2:
+                            success = False
+                            break
+
                 spinner.stop()
                 print(results)
             except Exception:
