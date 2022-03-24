@@ -5,10 +5,7 @@ import pandas as pd
 
 class GithubIntegration(Integration):
     def __init__(self, auth_file, organization):
-        Integration.__init__(self, 'GitHub')
-        self.auth_file = auth_file
-        self.auth_obj = self.get_auth_obj()
-        self.organization = organization
+        Integration.__init__(self, 'GitHub', auth_file, organization)
 
     def display_help_msg(self):
         print('Github Integration - Fix me, maybe remove this?')
