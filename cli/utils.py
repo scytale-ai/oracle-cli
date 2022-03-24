@@ -1,12 +1,10 @@
 from halo import Halo
-from colored import stylize, fg, attr
+from colored import stylize, fg, attr, bg
 import os
 from datetime import datetime
 from pandas import DataFrame
 from termcolor import colored, cprint
 
-import numpy as np
-import pandas as pd
 
 PREFIX_SYMBOLS = {
     0: stylize('\u2713', fg(10) + attr(1)),  # GREEN V
