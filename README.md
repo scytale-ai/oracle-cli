@@ -13,6 +13,7 @@ a multitude of tests.
 4. ``touch github_token``
 5. ``vi github_token``
 6. Paste your GitHub Personal Access token and save
+7. Install all dependencies using: ``pip install -r requirements.txt``
 
 ## Commands & Help
 
