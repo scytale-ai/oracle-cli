@@ -11,8 +11,6 @@ def init_cli():
 
     parser.add_argument('--github', nargs="*", help="Run GitHub tests",
                         choices=github_test_suite.test_args)
-    parser.add_argument('--aws', nargs="*", help="Run AWS tests",
-                        choices=github_test_suite.test_args)
     parser.add_argument('--disconnect', action="store_true", help="Disconnect from github")  # Deleted tokens.
     parser.add_argument('--to-csv', action="store_true", help="Output result to CSV")
 

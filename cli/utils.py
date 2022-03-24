@@ -5,7 +5,6 @@ from datetime import datetime
 from pandas import DataFrame
 from termcolor import colored, cprint
 
-
 PREFIX_SYMBOLS = {
     0: stylize('\u2713', fg(10) + attr(1)),  # GREEN V
     1: stylize('~', fg(3) + attr(1)),  # YELLOW ~
@@ -21,6 +20,11 @@ SEVERITY_COLORS = {
 
 DEFAULT_OUTPUT_CSV_DIR = './'
 MAX_COLUMN_WIDTH = 30
+
+scytale_colored_squares = stylize('\u25A0', fg('#DD4973')) + stylize('\u25A0', fg('#F7BE33')) + stylize('\u25A0', fg('#60C9E2'))
+scytale_message = stylize(
+    "\nWant to pass a SOC2 audit? For our complete compliance automation platform check us out! https://scytale.ai",
+    fg(13)) + " " + scytale_colored_squares
 
 
 def get_loader(text):
@@ -64,12 +68,3 @@ def pretty_print_dataframe(dataframe: DataFrame):
             print(fmt_row)
         else:
             cprint(colored(fmt_row, SEVERITY_COLORS[row_dict['severity']]))
-
-
-
-scytale_colored_squares = stylize('\u25A0', fg('#DD4973')) + stylize('\u25A0', fg('#F7BE33')) + stylize('\u25A0',
-                                                                                                        fg('#60C9E2'))
-
-scytale_message = stylize(
-    "\nWant to pass a SOC2 audit? For our complete compliance automation platform check us out! https://scytale.ai",
-    bg(91)) + " " + scytale_colored_squares
