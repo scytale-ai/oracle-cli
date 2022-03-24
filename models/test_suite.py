@@ -32,11 +32,10 @@ class TestSuite:
             success = True
             spinner = get_loader(f"Running test: {test_name}" + "\n")
             spinner.start()
-            time.sleep(2)
-            spinner.stop()
 
             try:
                 results = self.tests[test_name]()
+                spinner.stop()
                 print(results)
             except Exception:
                 success = False
