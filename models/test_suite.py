@@ -14,9 +14,7 @@ class TestSuite:
         self.integration = integration_instance
         self.methods = inspect.getmembers(integration_instance, predicate=inspect.ismethod)
 
-        self.tests = {
-            'A': test_a,
-        }
+        self.tests = {}
 
         for method in self.methods:
             method_name = method[1].__doc__
