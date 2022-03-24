@@ -117,6 +117,3 @@ class GithubIntegration(Integration):
 
     def get_prs(self):
         pass
-
-    def check_cr_enforce_on_repos(self):
-        pass

@@ -4,10 +4,6 @@ import time
 from cli.utils import get_loader, get_success_message, get_failure_message
 
 
-def test_a():
-    print("Doing some stuff...")
-
-
 class TestSuite:
     def __init__(self, integration_instance):
         self.integration = integration_instance
