@@ -1,6 +1,5 @@
 import inspect
 import inquirer
-import time
 from cli.utils import get_loader, get_success_message, get_failure_message
 
 
@@ -31,10 +30,25 @@ class TestSuite:
         if test_name in self.tests:
             success = True
             spinner = get_loader(f"Running test: {test_name}" + "\n")
-            spinner.start()
 
             try:
-                results = self.tests[test_name]()
+                test = self.tests[test_name]
+                test_signature = inspect.signature(test).parameters.keys() or []
+
+                results = None
+                if len(test_signature) == 0:
+                    spinner.start()
+                    results = test()
+                else:
+                    args = []
+                    print("This test needs some inputs.\n")
+                    for arg in test_signature:
+                        value = input(f"{arg}: ")
+                        args.append(value)
+
+                    spinner.start()
+                    results = test(*args)
+
                 spinner.stop()
                 print(results)
             except Exception:
