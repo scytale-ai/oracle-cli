@@ -1,6 +1,6 @@
 import inspect
 import inquirer
-from cli.utils import get_loader, get_success_message, get_failure_message
+from cli.utils import get_loader, get_success_message, get_failure_message, scytale_message
 
 
 class TestSuite:
@@ -60,6 +60,7 @@ class TestSuite:
                 else:
                     print(get_failure_message(f"{test_name} run failed"))
 
+                print(scytale_message)
         else:
             print("Invalid test name")
 
