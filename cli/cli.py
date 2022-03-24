@@ -9,9 +9,9 @@ def init_cli():
     parser = argparse.ArgumentParser(description="Scytale compliance CLI")
 
     parser.add_argument('--github', nargs="*", help="Run GitHub tests",
-                        choices=github_test_suite.choices)
+                        choices=github_test_suite.test_args)
     parser.add_argument('--aws', nargs="*", help="Run AWS tests",
-                        choices=github_test_suite.choices)
+                        choices=github_test_suite.test_args)
     parser.add_argument('--disconnect', action="store_true", help="Disconnect from github")  # Deleted tokens.
 
     return parser.parse_args()
@@ -27,7 +27,8 @@ def run_integration_operations(integration_args, integration_name):
         if not integration_args:
             test_suite.select_test()
         else:
-            test_name = integration_args[0]
+            method_name = integration_args[0]
+            test_name = test_suite.get_test_name(method_name)
 
             test_suite.run_test(test_name)
 

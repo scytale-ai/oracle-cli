@@ -15,13 +15,22 @@ class TestSuite:
         self.methods = inspect.getmembers(integration_instance, predicate=inspect.ismethod)
 
         self.tests = {}
+        self.test_args = []
 
         for method in self.methods:
-            method_name = method[1].__doc__
-            if method_name:
-                self.tests[method_name] = method[1]
+            method_name = method[0]
+            method_display_name = method[1].__doc__
+            if method_display_name:
+                self.test_args.append(method_name)
+                self.tests[method_display_name] = method[1]
 
-        self.choices = self.tests.keys()
+        self.test_names = self.tests.keys()
+
+    def get_test_name(self, method_name):
+        for method in self.methods:
+            if method[0] == method_name:
+                return method[1].__doc__
+
 
     def run_test(self, test_name):
         """Run Test"""
@@ -50,7 +59,7 @@ class TestSuite:
         questions = [
             inquirer.List('test_name',
                           message=f"Which {self.integration.display_name} test would you like to run?",
-                          choices=self.choices,
+                          choices=self.test_names,
                           carousel=True
                           ),
         ]
