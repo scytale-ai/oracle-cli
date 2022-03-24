@@ -27,17 +27,12 @@ def get_loader(text):
     return Halo(text=text, spinner="dots")
 
 
-check_mark = stylize('\u2713', fg(10) + attr(1))
-
-failure_x = stylize('\u2716', fg(9) + attr(1))
-
-
 def get_success_message(success_text):
     return f"{PREFIX_SYMBOLS[0]} {success_text}"
 
 
 def get_failure_message(failure_text):
-    return f"{PREFIX_SYMBOLS[1]} {failure_text}"
+    return f"{PREFIX_SYMBOLS[2]} {failure_text}"
 
 
 def convert_dataframe_to_csv(dataframe: DataFrame):

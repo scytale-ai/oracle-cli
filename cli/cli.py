@@ -1,7 +1,7 @@
 import argparse
 from models.github import GithubIntegration
 from models.test_suite import TestSuite
-from .utils import convert_dataframe_to_csv, pretty_print_dataframe
+from .utils import convert_dataframe_to_csv
 
 github_test_suite = TestSuite(GithubIntegration(auth_file='/home/evoosa/secrets/github_token', organization='scytale-ai'))
 
@@ -15,7 +15,6 @@ def init_cli():
                         choices=github_test_suite.test_args)
     parser.add_argument('--disconnect', action="store_true", help="Disconnect from github")  # Deleted tokens.
     parser.add_argument('--to-csv', action="store_true", help="Output result to CSV")
-    parser.add_argument('-p', '--print', action="store_true", help="Print results to screen")
 
     return parser.parse_args()
 
@@ -51,6 +50,4 @@ def run_cli():
     if args.to_csv:
         convert_dataframe_to_csv(result)
 
-    if args.print:
-        pretty_print_dataframe(result)
 

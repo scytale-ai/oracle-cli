@@ -1,6 +1,6 @@
 import inspect
 import inquirer
-from cli.utils import get_loader, get_success_message, get_failure_message, scytale_message
+from cli.utils import get_loader, get_success_message, get_failure_message, scytale_message, pretty_print_dataframe
 
 
 class TestSuite:
@@ -49,18 +49,20 @@ class TestSuite:
                     spinner.start()
                     results = test(*args)
 
-                if 'severity' in results[0]:
-                    for res in results:
-                        if res['severity'] == 2:
+                if 'severity' in results.keys():
+                    for sev in results['severity'].values:
+                        if sev == 2:
                             success = False
                             break
 
                 spinner.stop()
+                pretty_print_dataframe(results)
                 return results
             except Exception:
                 success = False
                 raise
             finally:
+                print("\n")
                 if success:
                     print(get_success_message(f"{test_name} ran successfully"))
                 else:
