@@ -5,10 +5,10 @@ from datetime import datetime
 from pandas import DataFrame
 
 PREFIX_SYMBOLS = {
-    "succuess": stylize('\u2713', fg(10) + attr(1)),  # GREEN V
-    "warning": stylize('~', fg(3) + attr(1)),  # YELLOW ~
-    "failure": stylize('\u2716', fg(9) + attr(1)),  # RED X
-    "no_style": ''
+    0: stylize('\u2713', fg(10) + attr(1)),  # GREEN V
+    1: stylize('~', fg(3) + attr(1)),  # YELLOW ~
+    2: stylize('\u2716', fg(9) + attr(1)),  # RED X
+    4: ''
 }
 
 DEFAULT_OUTPUT_CSV_DIR = './'
@@ -23,11 +23,11 @@ def print_formatted_line(line_text, prefix_symbol):
 
 
 def get_success_message(success_text):
-    return f"{PREFIX_SYMBOLS['success']} {success_text}"
+    return f"{PREFIX_SYMBOLS[0]} {success_text}"
 
 
 def get_failure_message(failure_text):
-    return f"{PREFIX_SYMBOLS['failure']} {failure_text}"
+    return f"{PREFIX_SYMBOLS[1]} {failure_text}"
 
 
 def convert_dataframe_to_csv(dataframe: DataFrame):
@@ -41,3 +41,6 @@ def convert_dataframe_to_csv(dataframe: DataFrame):
 
 def pretty_print_dataframe(dataframe: DataFrame):
     """Pretty print the given DataFrame"""
+    for row in dataframe.iterrows():
+        row_data = row[1]
+        severity = 4
