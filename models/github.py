@@ -124,6 +124,7 @@ class GithubIntegration(Integration):
         """List Pull Requests from the Past 24hrs"""
         repos = self.__get_all_repos()
         all_pulls = []
+        pulls_repos = []
         for repo in repos:
             print(f' - getting PRs from repo {repo.name}')
             pulls = repo.get_pulls()
@@ -131,9 +132,11 @@ class GithubIntegration(Integration):
                 now = datetime.now()
                 yesterday = now - timedelta(hours=24)
                 if pull.created_at >= yesterday:
+                    pulls_repos.append(repo.name)
                     all_pulls.append(pull)
 
         return pd.DataFrame({
             'title': map(lambda pr: pr.title, all_pulls),
+            'repo': pulls_repos,
             'severity': [3] * len(all_pulls)
         })
