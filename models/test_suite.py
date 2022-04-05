@@ -33,21 +33,22 @@ class TestSuite:
         spinner = get_loader(f"Running test: {test_display_name}" + "\n")
         try:
             test = self.methods[test_name]
-            test_signature = inspect.signature(test).parameters.keys() or []
+            test_arguments = inspect.signature(test).parameters.keys() or []
 
-            if len(test_signature) == 0:
+            # get arguments if needed
+            if len(test_arguments) == 0:
                 spinner.start()
                 results = test()
             else:
                 args = []
                 print("This test needs some inputs.\n")
-                for arg in test_signature:
+                for arg in test_arguments:
                     value = input(f"{arg}: ")
                     args.append(value)
-
                 spinner.start()
                 results = test(*args)
 
+            # if the severity of one of the results is too high, mark the test as failed
             if 'severity' in results.keys():
                 for sev in results['severity'].values:
                     if sev == 2:
