@@ -5,22 +5,28 @@ from datetime import datetime, timedelta
 
 
 class GithubIntegration(Integration):
-    def __init__(self, organization, auth_file='./github_token'):
+    """ github integration to work with the 3rd party service github """
+
+    def __init__(self, organization, auth_file):
         Integration.__init__(self, 'GitHub', auth_file)
         self.organization = organization
 
     def _get_auth_obj(self):
-        with open(self.auth_file, 'r') as f:
-            api_token = f.read().strip()
-        return Github(api_token)
+        """ get authentication object for github """
+        try:
+            with open(self.auth_file, 'r') as f:
+                api_token = f.read().strip()
+            return Github(api_token)
+        except FileNotFoundError:
+            raise FileNotFoundError((f"can't find the auth file: '{self.auth_file}' - please provide a file with your github token in it"))
 
     def __get_repo(self, repo_name) -> Repository.Repository:
-        # Get repo object.
+        """ get repo object """
         search_res = self._auth_obj.search_repositories(query=f'org:{self.organization} {repo_name}')
         return search_res[0]
 
     def __get_all_repos(self):
-        # get all repo objects in the given organization
+        """ get all repo objects in the given organization """
         repos = []
         _repos = self._auth_obj.search_repositories(query=f'org:{self.organization}')
         for repo in _repos:

@@ -5,81 +5,80 @@ from cli.utils import get_loader, get_success_message, get_failure_message, scyt
 
 class TestSuite:
     def __init__(self, integration_instance):
-        self.integration = integration_instance
-        self.methods = inspect.getmembers(integration_instance, predicate=inspect.ismethod)
-
+        self.integration_class = integration_instance
+        self.methods = self._get_integration_methods()
         self.tests = {}
-        self.test_args = []
+        self.tests_display_names = self._get_tests_display_names()
 
-        for method in self.methods:
-            method_name = method[0]
-            method_display_name = method[1].__doc__
-            if method_display_name:
-                self.test_args.append(method_name)
-                self.tests[method_display_name] = method[1]
+    def check_test_existance(self, test_name):
+        """ check if the given test exists in the integration class """
+        valid_test_names = self.methods.keys()
+        if test_name not in valid_test_names:
+            print(f'"{test_name}" is an invalid test! please choose one of: {list(valid_test_names)}')
+            exit(1)
 
-        self.test_names = self.tests.keys()
+    def _get_integration_methods(self) -> dict:
+        """ get all the integration's methods """
+        integration_methods = inspect.getmembers(self.integration_class, predicate=inspect.ismethod)
+        return {method[0]: method[1] for method in integration_methods if not method[0].startswith('_')}
 
-    def get_test_name(self, method_name):
-        for method in self.methods:
-            if method[0] == method_name:
-                return method[1].__doc__
+    def _get_tests_display_names(self) -> dict:
+        """ get a mapping between the test's display names, and the test's method name """
+        return {method_obj[1].__doc__: method_obj[0] for method_obj in self.methods.items()}
 
     def run_test(self, test_name):
-        """Run Test"""
-        if test_name in self.tests:
-            success = True
-            spinner = get_loader(f"Running test: {test_name}" + "\n")
+        """ run a test if exists, given it's name"""
+        self.check_test_existance(test_name)
+        test_display_name = dict((new_val, new_k) for new_k, new_val in self.tests_display_names.items()).get(test_name)
+        success = True
+        spinner = get_loader(f"Running test: {test_display_name}" + "\n")
+        try:
+            test = self.methods[test_name]
+            test_signature = inspect.signature(test).parameters.keys() or []
 
-            try:
-                test = self.tests[test_name]
-                test_signature = inspect.signature(test).parameters.keys() or []
+            if len(test_signature) == 0:
+                spinner.start()
+                results = test()
+            else:
+                args = []
+                print("This test needs some inputs.\n")
+                for arg in test_signature:
+                    value = input(f"{arg}: ")
+                    args.append(value)
 
-                results = None
-                if len(test_signature) == 0:
-                    spinner.start()
-                    results = test()
-                else:
-                    args = []
-                    print("This test needs some inputs.\n")
-                    for arg in test_signature:
-                        value = input(f"{arg}: ")
-                        args.append(value)
+                spinner.start()
+                results = test(*args)
 
-                    spinner.start()
-                    results = test(*args)
+            if 'severity' in results.keys():
+                for sev in results['severity'].values:
+                    if sev == 2:
+                        success = False
+                        break
 
-                if 'severity' in results.keys():
-                    for sev in results['severity'].values:
-                        if sev == 2:
-                            success = False
-                            break
+            spinner.stop()
+            pretty_print_dataframe(results)
+            return results
+        except Exception:
+            success = False
+            raise
+        finally:
+            print("\n")
+            if success:
+                print(get_success_message(f"{test_display_name} ran successfully"))
+            else:
+                print(get_failure_message(f"{test_display_name} run failed"))
 
-                spinner.stop()
-                pretty_print_dataframe(results)
-                return results
-            except Exception:
-                success = False
-                raise
-            finally:
-                print("\n")
-                if success:
-                    print(get_success_message(f"{test_name} ran successfully"))
-                else:
-                    print(get_failure_message(f"{test_name} run failed"))
-
-                print(scytale_message)
-        else:
-            print("Invalid test name")
+            print(scytale_message)
 
     def select_test(self):
+        """ give the user the option to select a test to run, and run it """
         questions = [
             inquirer.List('test_name',
-                          message=f"Which {self.integration.display_name} test would you like to run?",
-                          choices=self.test_names,
+                          message=f"Which {self.integration_class.display_name} test would you like to run?",
+                          choices=self.tests_display_names,
                           carousel=True
                           ),
         ]
         answers = inquirer.prompt(questions)
-        result = self.run_test(answers['test_name'])
+        result = self.run_test(self.tests_display_names[answers['test_name']])
         return result
