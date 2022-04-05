@@ -7,7 +7,6 @@ class TestSuite:
     def __init__(self, integration_instance):
         self.integration_class = integration_instance
         self.methods = self._get_integration_methods()
-        self.tests = {}
         self.tests_display_names = self._get_tests_display_names()
 
     def check_test_existance(self, test_name):
