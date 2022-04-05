@@ -5,26 +5,24 @@ from datetime import datetime, timedelta
 
 
 class GithubIntegration(Integration):
-    def __init__(self, auth_file, organization):
-        Integration.__init__(self, 'GitHub', auth_file, organization)
+    def __init__(self, organization, auth_file='./github_token'):
+        Integration.__init__(self, 'GitHub', auth_file)
+        self.organization = organization
 
-    def display_help_msg(self):
-        print('Github Integration - Fix me, maybe remove this?')
-
-    def get_auth_obj(self):
+    def _get_auth_obj(self):
         with open(self.auth_file, 'r') as f:
             api_token = f.read().strip()
         return Github(api_token)
 
     def __get_repo(self, repo_name) -> Repository.Repository:
         # Get repo object.
-        search_res = self.auth_obj.search_repositories(query=f'org:{self.organization} {repo_name}')
+        search_res = self._auth_obj.search_repositories(query=f'org:{self.organization} {repo_name}')
         return search_res[0]
 
     def __get_all_repos(self):
         # get all repo objects in the given organization
         repos = []
-        _repos = self.auth_obj.search_repositories(query=f'org:{self.organization}')
+        _repos = self._auth_obj.search_repositories(query=f'org:{self.organization}')
         for repo in _repos:
             repos.append(repo)
         return repos
@@ -72,7 +70,7 @@ class GithubIntegration(Integration):
         permissions = []
         severities = []
 
-        organization = self.auth_obj.get_organization(self.organization)
+        organization = self._auth_obj.get_organization(self.organization)
         repos = self.__get_all_repos()
         for member in organization.get_members():
             print(f'- getting repository permissions for {member.login}')
