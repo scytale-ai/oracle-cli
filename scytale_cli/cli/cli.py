@@ -1,6 +1,6 @@
 import argparse
-from models.github import GithubIntegration
-from models.test_suite import TestSuite
+from ..models.github import GithubIntegration
+from ..models.test_suite import TestSuite
 from .utils import convert_dataframe_to_csv
 
 INTEGRATIONS = {
@@ -36,13 +36,7 @@ def run_cli():
     if args.integration == 'github':
         if not args.github_organization:
             raise ValueError(f'please provide "--github-organization" argument')
-
-        # get github_token file path
-        if not args.github_token_file:
-            auth_file ='./github_token'
-        else:
-            auth_file = args.github_token_file
-
+        auth_file = './github_token' if not args.github_token_file else args.github_token_file
         test_suite = TestSuite(GithubIntegration(organization=args.github_organization, auth_file=auth_file))
     else:
         raise ValueError(f'please provide "--integration" argument')

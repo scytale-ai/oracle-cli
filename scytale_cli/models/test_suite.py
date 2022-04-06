@@ -1,6 +1,6 @@
 import inspect
 import inquirer
-from cli.utils import get_loader, get_success_message, get_failure_message, scytale_message, pretty_print_dataframe
+from ..cli.utils import get_loader, get_success_message, get_failure_message, scytale_message, pretty_print_dataframe
 
 
 class TestSuite:

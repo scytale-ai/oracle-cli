@@ -1,8 +1,0 @@
-argparse
-halo
-colored
-pandas
-PyGithub
-DateTime
-inquirer
-termcolor
