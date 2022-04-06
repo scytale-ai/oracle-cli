@@ -2,6 +2,7 @@ import argparse
 from ..models.github import GithubIntegration
 from ..models.test_suite import TestSuite
 from .utils import convert_dataframe_to_csv
+import sys
 
 INTEGRATIONS = {
     'github': GithubIntegration
@@ -26,7 +27,10 @@ def init_cli():
     parser.add_argument('--to-csv',
                         action="store_true",
                         help="Output results to CSV")
-
+    # print help message if no args are supplied
+    if len(sys.argv) == 1:
+        parser.print_help(sys.stderr)
+        sys.exit(1)
     return parser.parse_args()
 
 
