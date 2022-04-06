@@ -27,6 +27,7 @@ def init_cli():
     parser.add_argument('--to-csv',
                         action="store_true",
                         help="Output results to CSV")
+
     # print help message if no args are supplied
     if len(sys.argv) == 1:
         parser.print_help(sys.stderr)

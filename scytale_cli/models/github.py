@@ -18,7 +18,7 @@ class GithubIntegration(Integration):
                 api_token = f.read().strip()
             return Github(api_token)
         except FileNotFoundError:
-            raise FileNotFoundError((f"can't find the auth file: '{self.auth_file}' - please provide a file with your github token in it"))
+            raise FileNotFoundError((f"can't find the auth file: '{self.auth_file}' - please provide an argument referencing the auth file with your github token in it"))
 
     def __get_repo(self, repo_name) -> Repository.Repository:
         """ get repo object """
