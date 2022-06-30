@@ -8,7 +8,7 @@
   <br/>
   <hr/>
   <h1>🔮 The Scytale Oracle 🔮</h1>
-  <strong style="color:cornflowerblue">Get a quick GitHub compliance assessment</strong>
+  <strong>Get a quick GitHub compliance assessment</strong>
   <br/>
   <br/>
 </div>
@@ -87,7 +87,7 @@ scytale-oracle --github-organization <ORGANIZATION_NAME>
 <hr/>
 
 <div align="center"> 
-  <strong style="color:cornflowerblue">
+  <strong>
   🔮 Created by the <a href="https://scytale.ai/">Scytale</a> Hackathon Blue Team; Idan Ram, Eva Osherovsky, Jess Gopas &#169; 2022 🔮
   </strong>
 </div>
