@@ -1,12 +1,12 @@
-<div align="center" style="align:center;text-align:center;"> 
+<div align="center"> 
   <br/>
   <br/>
   <img src="https://scytale.ai/wp-content/uploads/2021/07/scytale-logo.svg" alt="scytale-logo" width="200px"/>
   <br/>
   <br/>
   <hr/>
-  <h1 style="align:center;text-align:center;color:white">🔮 The Scytale Oracle 🔮</h1>
-  <strong style="text-align:center;color:cornflowerblue">Get a quick GitHub compliance assessment</strong>
+  <h1>🔮 The Scytale Oracle 🔮</h1>
+  <strong style="color:cornflowerblue">Get a quick GitHub compliance assessment</strong>
   <br/>
   <br/>
 </div>
