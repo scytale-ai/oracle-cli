@@ -1,7 +1,9 @@
 <div align="center"> 
   <br/>
   <br/>
-  <img src="https://scytale.ai/wp-content/uploads/2021/07/scytale-logo.svg" href="https://scytale.ai/" alt="scytale-logo" width="200px"/>
+  <a href="https://scytale.ai/">
+    <img src="https://scytale.ai/wp-content/uploads/2021/07/scytale-logo.svg" alt="scytale-logo" width="200px"/>
+  </a>  
   <br/>
   <br/>
   <hr/>
