@@ -14,7 +14,7 @@
 
 ## Oracle's Purpose
 
-The Scytale Oracle is a light-weight, open-source compliance CLI allowing you to get a quick GitHub compliance check for
+The [Scytale](https://scytale.ai) Oracle is a light-weight, open-source compliance CLI allowing you to get a quick GitHub compliance check for
 a multitude of tests.
 
 ### Supported Compliance Tests
@@ -80,13 +80,13 @@ Example:
 ```shell
 scytale-oracle --github-organization <ORGANIZATION_NAME>
 ```
-* This command will print a dropdown that will let you choose the compliance test you wish to run
+* This command will display a dropdown that will let you choose the compliance test you wish to run
 
 <hr/>
 
 <div style="text-align:center"> 
   <strong style="text-align:center;color:cornflowerblue">
-  🔮 Created by the Scytale Hackathon Blue Team, AKA - Idan Ram, Eva Osherovsky, Jess Gopas &#169; 2022 🔮
+  🔮 Created by the <a href="https://scytale.ai/">Scytale</a> Hackathon Blue Team; Idan Ram, Eva Osherovsky, Jess Gopas &#169; 2022 🔮
   </strong>
 </div>
 <hr />
