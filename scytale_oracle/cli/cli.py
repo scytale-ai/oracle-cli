@@ -14,7 +14,7 @@ def init_cli():
     parser.add_argument('--integration',
                         default='github',
                         choices=INTEGRATIONS.keys(),
-                        help=f"the integration to run. supported options: {INTEGRATIONS.keys()}")
+                        help=f"the integration to run. supported options: {list(INTEGRATIONS.keys())}")
     parser.add_argument('--test-name',
                         required=False,
                         help="choose which test to run, optional")

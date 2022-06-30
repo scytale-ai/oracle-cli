@@ -85,7 +85,7 @@ class GithubIntegration(Integration):
         organization = self._auth_obj.get_organization(self.organization)
         repos = self.__get_all_repos()
         for member in organization.get_members():
-            print(f'- getting repository permissions for {member.login}')
+            print(f' - getting repository permissions for {member.login}')
             for repo in repos:
                 permission = repo.get_collaborator_permission(member.login)
                 severity = 0
