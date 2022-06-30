@@ -10,7 +10,6 @@
   <br/>
   <br/>
 </div>
-
 <hr />
 
 ## Oracle's Purpose
@@ -18,23 +17,76 @@
 The Scytale Oracle is a light-weight, open-source compliance CLI allowing you to get a quick GitHub compliance check for
 a multitude of tests.
 
-## Installation - Linux
+### Supported Compliance Tests
 
-git clone pip install in root dir how it was created dependencies?
+* List Repositories
+* Get All Users Repositories Permissions
+* Get Repository Branch Protection Status
+* Get User's Repositories Permissions
+* List Pull Requests from the Past 24hrs
 
-1. ``cd ~``
-2. ``mkdir secrets``
-3. ``cd secrets``
-4. ``touch github_token``
-5. ``vi github_token``
-6. Paste your GitHub Personal Access token and save
-7. Install all dependencies using: ``pip install -r requirements.txt``
+### Features
 
-## Commands & Help
+* The output can be written to a CSV file
 
-For a list of commands & arguments, use the following command:  
-``scytale --help``
+<hr />
 
-<br>
+## Installation
 
-**All Rights Reserved to the Scytale Hackathon Blue Team, &#169; 2022**
+### Prerequisites
+
+* Ubuntu
+* Python 3.8
+* pip 21.3.1
+
+Clone the oracle's repository
+
+```shell 
+git clone https://github.com/scytale-ai/cli.git
+```
+
+Install Oracle CLI
+
+```shell
+cd cli/
+pip install ./
+```
+
+Check that the CLI is installed
+```shell
+scytale-oracle -h
+```
+
+### Set Up Authentication
+
+set your GitHub token as an environment variable named GITHUB_TOKEN, the Oracle uses it for authenticating with Github
+
+* Make sure the token has read permissions, **no write permissions are required for the Oracle to work**
+
+```shell
+export GITHUB_TOKEN='<YOUR_PERSONAL_GITHUB_TOKEN>'
+```
+
+<hr />
+
+## Examples & Help
+
+To get help and the supported arguments, run: 
+```shell
+scytale-oracle -h
+```
+
+Example:
+```shell
+scytale-oracle --github-organization <ORGANIZATION_NAME>
+```
+* This command will print a dropdown that will let you choose the compliance test you wish to run
+
+<hr/>
+
+<div style="text-align:center"> 
+  <strong style="text-align:center;color:cornflowerblue">
+  🔮 Created by the Scytale Hackathon Blue Team, AKA - Idan Ram, Eva Osherovsky, Jess Gopas &#169; 2022 🔮
+  </strong>
+</div>
+<hr />
