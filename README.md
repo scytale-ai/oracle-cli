@@ -61,7 +61,7 @@ scytale-oracle -h
 
 ### Set Up Authentication
 
-set your GitHub token as an environment variable named GITHUB_TOKEN, the Oracle uses it for authenticating with Github
+set your [GitHub token](https://github.com/settings/tokens) as an environment variable named GITHUB_TOKEN, the Oracle uses it for authenticating with Github
 
 * Make sure the token has read permissions, **no write permissions are required for the Oracle to work**
 
