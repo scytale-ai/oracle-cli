@@ -84,8 +84,8 @@ scytale-oracle --github-organization <ORGANIZATION_NAME>
 
 <hr/>
 
-<div style="align:center;text-align:center"> 
-  <strong style="text-align:center;color:cornflowerblue">
+<div align="center"> 
+  <strong style="color:cornflowerblue">
   🔮 Created by the <a href="https://scytale.ai/">Scytale</a> Hackathon Blue Team; Idan Ram, Eva Osherovsky, Jess Gopas &#169; 2022 🔮
   </strong>
 </div>
