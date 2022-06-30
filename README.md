@@ -1,4 +1,4 @@
-# The Scyatle Oracle
+# The Scytale Oracle
 
 ## Summary
 
