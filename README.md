@@ -7,7 +7,7 @@
   <br/>
   <br/>
   <hr/>
-  <h1>🔮 The Scytale Oracle 🔮</h1>
+  <p style="font-weight:bold;font-size:30px;color:white">🔮 The Scytale Oracle 🔮</p>
   <strong style="color:cornflowerblue">Get a quick GitHub compliance assessment</strong>
   <br/>
   <br/>
