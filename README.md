@@ -1,11 +1,11 @@
-<div style="text-align:center"> 
+<div style="align:center;text-align:center;"> 
   <br/>
   <br/>
   <img src="https://scytale.ai/wp-content/uploads/2021/07/scytale-logo.svg" alt="scytale-logo" width="200px"/>
   <br/>
   <br/>
   <hr/>
-  <h1 style="text-align:center;color:white">🔮 The Scytale Oracle 🔮</h1>
+  <h1 style="align:center;text-align:center;color:white">🔮 The Scytale Oracle 🔮</h1>
   <strong style="text-align:center;color:cornflowerblue">Get a quick GitHub compliance assessment</strong>
   <br/>
   <br/>
@@ -84,7 +84,7 @@ scytale-oracle --github-organization <ORGANIZATION_NAME>
 
 <hr/>
 
-<div style="text-align:center"> 
+<div style="align:center;text-align:center"> 
   <strong style="text-align:center;color:cornflowerblue">
   🔮 Created by the <a href="https://scytale.ai/">Scytale</a> Hackathon Blue Team; Idan Ram, Eva Osherovsky, Jess Gopas &#169; 2022 🔮
   </strong>
