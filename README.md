@@ -37,7 +37,6 @@ a multitude of tests.
 
 ### Prerequisites
 
-* Ubuntu
 * Python 3.8
 * pip 21.3.1
 
