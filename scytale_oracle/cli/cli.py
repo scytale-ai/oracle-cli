@@ -14,16 +14,13 @@ def init_cli():
     parser.add_argument('--integration',
                         default='github',
                         choices=INTEGRATIONS.keys(),
-                        help=f"the integration to run. supported options: {INTEGRATIONS.keys()}")
+                        help=f"the integration to run. supported options: {list(INTEGRATIONS.keys())}")
     parser.add_argument('--test-name',
                         required=False,
                         help="choose which test to run, optional")
     parser.add_argument('--github-organization',
                         required=False,
                         help="GitHub organization name")
-    parser.add_argument('--github-token-file',
-                        help="path to a file containing the github token",
-                        required=False)
     parser.add_argument('--to-csv',
                         action="store_true",
                         help="Output results to CSV")
@@ -41,8 +38,7 @@ def run_cli():
     if args.integration == 'github':
         if not args.github_organization:
             raise ValueError(f'please provide "--github-organization" argument')
-        auth_file = './github_token' if not args.github_token_file else args.github_token_file
-        test_suite = TestSuite(GithubIntegration(organization=args.github_organization, auth_file=auth_file))
+        test_suite = TestSuite(GithubIntegration(organization=args.github_organization))
     else:
         raise ValueError(f'please provide "--integration" argument')
 

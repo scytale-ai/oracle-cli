@@ -1,24 +1,30 @@
-from .integration import Integration
-from github import Github, Repository
-import pandas as pd
+import os
 from datetime import datetime, timedelta
+
+import pandas as pd
+from github import Github
+from github import Repository
+
+from .integration import Integration
+
+GITHUB_TOKEN_ENV_VAR_NAME = 'GITHUB_TOKEN'
 
 
 class GithubIntegration(Integration):
     """ github integration to work with the 3rd party service github """
 
-    def __init__(self, organization, auth_file):
-        Integration.__init__(self, 'GitHub', auth_file)
+    def __init__(self, organization):
+        Integration.__init__(self, 'GitHub')
         self.organization = organization
 
     def _get_auth_obj(self):
-        """ get authentication object for github """
+        """ get authentication object for GitHub from environment variable """
         try:
-            with open(self.auth_file, 'r') as f:
-                api_token = f.read().strip()
+            api_token = os.environ[GITHUB_TOKEN_ENV_VAR_NAME]
             return Github(api_token)
-        except FileNotFoundError:
-            raise FileNotFoundError((f"can't find the auth file: '{self.auth_file}' - please provide an argument referencing the auth file with your github token in it"))
+        except KeyError:
+            raise RuntimeError(
+                f"Authentication Failed - please provide your personal github token as an environment variable named '{GITHUB_TOKEN_ENV_VAR_NAME}'")
 
     def __get_repo(self, repo_name) -> Repository.Repository:
         """ get repo object """
@@ -79,7 +85,7 @@ class GithubIntegration(Integration):
         organization = self._auth_obj.get_organization(self.organization)
         repos = self.__get_all_repos()
         for member in organization.get_members():
-            print(f'- getting repository permissions for {member.login}')
+            print(f' - getting repository permissions for {member.login}')
             for repo in repos:
                 permission = repo.get_collaborator_permission(member.login)
                 severity = 0

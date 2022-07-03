@@ -1,0 +1,6 @@
+halo==0.0.31
+colored==1.4.3
+pandas==1.4.1
+termcolor==1.1.0
+PyGithub==1.55
+inquirer==2.9.1
