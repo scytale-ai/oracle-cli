@@ -1,9 +1,9 @@
 <p align="center">
-  <a href="https://scytale.ai/">
-    <img src="https://scytale-files.s3.amazonaws.com/scytale-logo/scytale_logo_light_mode.webp#gh-light-mode-only" alt="scytale-logo" width="318px" />
+  <a href="https://scytale.ai/#gh-light-mode-only">
+    <img src="https://scytale-files.s3.amazonaws.com/scytale-logo/scytale_logo_light_mode.webp" alt="scytale-logo" width="318px" />
   </a>
-  <a href="https://scytale.ai/">
-    <img src="https://scytale-files.s3.amazonaws.com/scytale-logo/scytale_logo_dark_mode.svg#gh-dark-mode-only" alt="scytale-logo" width="318px" />
+  <a href="https://scytale.ai/#gh-dark-mode-only">
+    <img src="https://scytale-files.s3.amazonaws.com/scytale-logo/scytale_logo_dark_mode.svg" alt="scytale-logo" width="318px" />
   </a>
 </p>
   <hr/>
