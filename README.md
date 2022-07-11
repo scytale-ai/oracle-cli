@@ -1,18 +1,14 @@
-<div align="center"> 
-  <br/>
-  <br/>
+<p align="center">
   <a href="https://scytale.ai/">
-    <img src="https://scytale.ai/wp-content/uploads/2021/07/scytale-logo.svg" alt="scytale-logo" width="200px"/>
-  </a>  
-  <br/>
-  <br/>
+    <img src="https://scytale.ai/wp-content/uploads/2021/07/scytale-logo.svg" alt="scytale-logo" width="318px" />
+  </a>
+</p>
   <hr/>
-  <h1>🔮 The Scytale Oracle 🔮</h1>
-  <strong>Get a quick GitHub compliance assessment</strong>
-  <br/>
-  <br/>
-</div>
-<hr />
+
+<h1 align="center">🔮 The Scytale Oracle 🔮</h1>
+<p style="font-weight: bold" align="center">Get a quick GitHub compliance assessment</p>
+<br />
+<hr/>
 
 ## Oracle's Purpose
 
