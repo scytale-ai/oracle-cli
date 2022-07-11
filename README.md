@@ -1,6 +1,9 @@
 <p align="center">
   <a href="https://scytale.ai/">
-    <img src="https://scytale.ai/wp-content/uploads/2021/07/scytale-logo.svg" alt="scytale-logo" width="318px" />
+    <img src="https://scytale-files.s3.amazonaws.com/scytale-logo/scytale_logo_light_mode.webp#gh-light-mode-only" alt="scytale-logo" width="318px" />
+  </a>
+  <a href="https://scytale.ai/">
+    <img src="https://scytale-files.s3.amazonaws.com/scytale-logo/scytale_logo_dark_mode.svg#gh-dark-mode-only" alt="scytale-logo" width="318px" />
   </a>
 </p>
   <hr/>
